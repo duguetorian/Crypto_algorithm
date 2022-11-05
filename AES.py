@@ -17,6 +17,11 @@ Sbox = [
             ["8C", "A1", "89", "0D", "BF", "E6", "42", "68", "41", "99", "2D", "0F", "B0", "54", "BB", "16"]
             ]
 
+S = ["2","3","1","1",
+    "1","2","3","1",
+    "1","1","2","3",
+    "3","1","1","2"]
+
 def subByte(clear):
     """
     clear must be a list of strings of the hex values
@@ -44,5 +49,43 @@ def shiftRow(clear):
             cipher.append(value)
     return cipher
 
-# def mixColumn(clear):
-    
+def multiply_by(n, hexa):
+    res = None
+    hexa_int = int(hexa, 16)
+    if n == "1":
+        res = hexa_int
+    elif n == "2":
+        if hexa_int < 0x80:
+            res = 2 * hexa_int
+        else:
+            res = 0xff&(2 * hexa_int) ^ 0x1B
+    elif n == "3":
+        res = multiply_by("2", hexa) ^ hexa_int
+    return res
+
+def mixColumn(clear):
+    cipher = [0 for i in range(0, 16)]
+    for col in range(0, 4):
+        for i in range(0, 4):
+            for j in range(0, 4):
+                cipher[4*i+col] ^= multiply_by(S[4*i+j], clear[4*j+col])
+
+    for i in range(0, 16):
+        cipher[i] = hex(cipher[i])[2:]
+    print(cipher)
+            
+
+S = ["2","3","1","1",
+    "1","2","3","1",
+    "1","1","2","3",
+    "3","1","1","2"]
+
+mixColumn(["2c", "63", "80", "19",
+"7f", "67", "50", "34",
+"c4", "65", "7b", "ac",
+"d0", "b3", "cc", "82"])
+
+mixColumn(["db", "db", "db", "db",
+"13", "13", "13", "13",
+"53", "53", "53", "53",
+"45", "45", "45", "45"])
