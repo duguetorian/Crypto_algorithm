@@ -29,6 +29,7 @@ def subByte(clear):
     cipher = []
     for byte in clear:
         cipher.append(Sbox[int(byte[0], 16)][int(byte[1], 16)])
+    print(cipher)
     return cipher
 
 def shiftRow(clear):
@@ -47,6 +48,7 @@ def shiftRow(clear):
     for line in matrix:
         for value in line:
             cipher.append(value)
+    print(cipher)
     return cipher
 
 def multiply_by(n, hexa):
@@ -73,6 +75,7 @@ def mixColumn(clear):
     for i in range(0, 16):
         cipher[i] = hex(cipher[i])[2:]
     print(cipher)
+    return cipher
             
 
 S = ["2","3","1","1",
