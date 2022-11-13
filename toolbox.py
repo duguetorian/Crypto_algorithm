@@ -125,3 +125,17 @@ def BSGS(g, y, p):
             pass
 
 # BSGS(3, 57, 113)
+
+def fermatFactorize(n):
+    s = 1
+
+    while sqrt(n + s*s) != round(sqrt(n + s*s)):
+        s +=1
+
+    t = round(sqrt(n + s*s))
+
+    print(f"s = {s}")
+    print(f"t = {t}")
+    print(f"{n} = {t}^2 - {s}^2 = ({t} + {s})({t} - {s}) = {t + s} x {t - s}")
+
+fermatFactorize(670273)
