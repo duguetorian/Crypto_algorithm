@@ -22,6 +22,9 @@ S = ["2","3","1","1",
     "1","1","2","3",
     "3","1","1","2"]
 
+def printMatrix(M, nb_lines, nb_col):
+    print("\n".join([" ".join(M[i * nb_col : (i + 1) * nb_col]) for i in range(nb_lines)]))
+
 def subByte(clear):
     """
     clear must be a list of strings of the hex values
